@@ -53,30 +53,49 @@ class MasyarakatController extends Controller
 
         public function update(Request $request, $id)
     {
-    $rules = [
-        'nama' => 'required',
-        'nomor_kk' => 'required|digits:12|numeric',
-        'nomor_ktp' => 'required|digits:12|numeric',
-        'alamat' => 'required|max:255',
-        'jenis_kelamin' => 'required|in:laki-laki,perempuan',
-    ];
+                
+        $masyarakat = \App\Models\Masyarakat::findOrFail($id);
 
-    $validated = $request->validate($rules);
+            $masyarakat->update([
+            'nama' => $request->nama,
+            'nomor_kk' => $request->nomor_kk,
+            'nomor_ktp' => $request->nomor_ktp,
+            'alamat' => $request->alamat,
+            'jenis_kelamin' => $request->jenis_kelamin,
+        ]);
 
-    $masyarakat = Masyarakat::findOrFail($id);
-    $masyarakat->update($validated);
+            return redirect()->route('data-masyarakat.index');
+        // $masyarakat = \App\Models\Masyarakat::findOrFail($id);
 
-    return redirect()->route('data-masyarakat')
-        ->with('success', 'Data berhasil diupdate');
-    }
+        // $masyarakat->update($request->all());
+
+        // return redirect('/data-masyarakat');
+    // dd('update terpanggil');
+
+    // $rules = [
+    //     'nama' => 'required',
+    //     'nomor_kk' => 'required|digits:12|numeric',
+    //     'nomor_ktp' => 'required|digits:12|numeric',
+    //     'alamat' => 'required|max:255',
+    //     'jenis_kelamin' => 'required|in:laki-laki,perempuan',
+    // ];
+
+    // $validated = $request->validate($rules);
+
+    // $masyarakat = Masyarakat::findOrFail($id);
+    // $masyarakat->update($validated);
+
+    // return redirect()->route('data-masyarakat.index')
+    //     ->with('success', 'Data berhasil diupdate');
+    // }
             
-        public function destroy($id)
-    {
-        $masyarakat = Masyarakat::findOrFail($id);
-        $masyarakat->delete();
+    //     public function destroy($id)
+    // {
+    //     $masyarakat = Masyarakat::findOrFail($id);
+    //     $masyarakat->delete();
 
-        return redirect()->route('data-masyarakat.index')
-            ->with('success', 'Data berhasil dihapus');
+    //     return redirect()->route('data-masyarakat.index')
+    //         ->with('success', 'Data berhasil dihapus');
     }
         //by primary key
    
