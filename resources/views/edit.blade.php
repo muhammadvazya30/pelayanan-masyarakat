@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layouts.app')
 
 @section('content')
    <form action="{{ route('data-masyarakat.update', $masyarakat->id) }}" method="POST">
