@@ -19,11 +19,11 @@ class MasyarakatController extends Controller
         return view('create',compact('genders'));
      }
 
-    public function show(Masyarakat $masyarakat)//:Masyarakat
+    public function show(Masyarakat $masyarakat):Masyarakat
     {
         $masyarakat = Masyarakat::with('keluhans')->where('id', $masyarakat->id)->first();
+        return $masyarakat;
 
-        $keluhan = Keluhan::with('pelapor')->where('masyarakat_id', $masyarakat->id)->first();
     }
 
      public function store(Request $request){ 
