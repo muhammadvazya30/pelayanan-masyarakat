@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Masyarakat;
+use App\Models\Keluhan;
 // use App\Models\Masyarakat as ModelsMasyarakat;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Numeric;
@@ -11,13 +12,19 @@ class MasyarakatController extends Controller
     public function index(){
         $masyarakats = Masyarakat::all();
         return view('index',compact('masyarakats'));
-        
         }
 
     public function create(){
         $genders = ['laki-laki', 'perempuan'];
         return view('create',compact('genders'));
      }
+
+    public function show(Masyarakat $masyarakat)//:Masyarakat
+    {
+        $masyarakat = Masyarakat::with('keluhans')->where('id', $masyarakat->id)->first();
+
+        $keluhan = Keluhan::with('pelapor')->where('masyarakat_id', $masyarakat->id)->first();
+    }
 
      public function store(Request $request){ 
 
